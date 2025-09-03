@@ -1,0 +1,15 @@
+---
+bypass_group:
+  - root
+  - mylena
+
+freezing_dates:
+  End of the Year:
+    from: 2025-12-24
+    to: 2026-01-02
+  Carnival:
+    from: 2025-03-01
+    to: 2025-03-05
+  Test:
+    from: 2025-03-19
+    to: 2025-03-21
