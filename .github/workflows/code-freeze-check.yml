@@ -1,0 +1,37 @@
+name: Code Freeze Check
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  code-freeze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Run code freeze checker
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: python src/code-freezing.py --config config/config.yml
